@@ -3,7 +3,6 @@ cmd + shift - return : open -a "Visual Studio Code"
 cmd + alt - return : open -a "Visual Studio Code - Insiders"
 alt - return : open -a "Sublime Text"
 
-
 # focus window
 alt - left : yabai -m window --focus west
 alt - down : yabai -m window --focus south
