@@ -4,22 +4,22 @@ cmd + alt - return : open -a "Visual Studio Code - Insiders"
 alt - return : open -a "Sublime Text"
 
 # focus window
-alt - left : yabai -m window --focus west
-alt - down : yabai -m window --focus south
-alt - up : yabai -m window --focus north
-alt - right : yabai -m window --focus east
+shift + ctrl - left : yabai -m window --focus west
+shift + ctrl - down : yabai -m window --focus south
+shift + ctrl - up : yabai -m window --focus north
+shift + ctrl - right : yabai -m window --focus east
 
 # swap window
-shift + alt - left : yabai -m window --swap west
-shift + alt - down : yabai -m window --swap south
-shift + alt - up : yabai -m window --swap north
-shift + alt - right : yabai -m window --swap east
+shift + cmd - left : yabai -m window --swap west
+shift + cmd - down : yabai -m window --swap south
+shift + cmd - up : yabai -m window --swap north
+shift + cmd - right : yabai -m window --swap east
 
 # move window
-shift + cmd - left : yabai -m window --warp west
-shift + cmd - down : yabai -m window --warp south
-shift + cmd - up : yabai -m window --warp north
-shift + cmd - right : yabai -m window --warp east
+shift + alt + cmd - left : yabai -m window --warp west
+shift + alt + cmd - down : yabai -m window --warp south
+shift + alt + cmd - up : yabai -m window --warp north
+shift + alt + cmd - right : yabai -m window --warp east
 
 # balance size of windows
 shift + alt - 0 : yabai -m space --balance
