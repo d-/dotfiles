@@ -4,6 +4,10 @@ cmd + alt - return : open -a "Visual Studio Code - Insiders"
 alt - return : open -a "Sublime Text"
 
 # focus window
+shift + ctrl - x : yabai -m window --focus recent
+shift + ctrl - z : yabai -m window --focus prev
+shift + ctrl - c : yabai -m window --focus next
+shift + ctrl - left : yabai -m window --focus west
 shift + ctrl - left : yabai -m window --focus west
 shift + ctrl - down : yabai -m window --focus south
 shift + ctrl - up : yabai -m window --focus north
