@@ -1,7 +1,8 @@
 cmd - return : open -a iTerm
 cmd + shift - return : open -a "Visual Studio Code"
-cmd + alt - return : open -a "Visual Studio Code - Insiders"
 alt - return : open -a "Sublime Text"
+ctrl + cmd - return : open -a "Visual Studio Code - Insiders"
+cmd + alt - return : open -a "Safari"
 
 # focus window
 shift + ctrl - x : yabai -m window --focus recent
