@@ -2,7 +2,7 @@ cmd - return : open -a iTerm
 cmd + shift - return : open -a "Visual Studio Code"
 alt - return : open -a "Sublime Text"
 ctrl + cmd - return : open -a "Visual Studio Code - Insiders"
-cmd + alt - return : open -a "Safari"
+cmd + alt - return : open -a "Microsoft Edge" https://chat.openai.com/chat
 shift + ctrl + cmd - s : open -a "Sublime Text" ~/.config/skhd/skhdrc
 shift + ctrl + cmd - v : open -a "Safari" https://vim.rtorr.com/ 
 
