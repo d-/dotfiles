@@ -1,0 +1,24 @@
+0000000000000000000000000000000000000000 bf9e3bde3061986012a613e1256e72c2051f0d22 David Wood <d-@users.noreply.github.com> 1675466423 -0500	commit (initial): Initial commit
+bf9e3bde3061986012a613e1256e72c2051f0d22 0000000000000000000000000000000000000000 David Wood <d-@users.noreply.github.com> 1675466442 -0500	Branch: renamed refs/heads/main to refs/heads/main
+bf9e3bde3061986012a613e1256e72c2051f0d22 bf9e3bde3061986012a613e1256e72c2051f0d22 David Wood <d-@users.noreply.github.com> 1675466442 -0500	Branch: renamed refs/heads/main to refs/heads/main
+bf9e3bde3061986012a613e1256e72c2051f0d22 5605a0da1ede5c726c6b2f7018c3db43fc920914 David Wood <d-@users.noreply.github.com> 1675467223 -0500	commit: Remove padding
+5605a0da1ede5c726c6b2f7018c3db43fc920914 1e0d1d6d723fbf40a8b4f05d74582977b06ee9bb David Wood <d-@users.noreply.github.com> 1675478390 -0500	commit: add skhd scripts
+1e0d1d6d723fbf40a8b4f05d74582977b06ee9bb e71909eae9ad37c6dcde5511825e6fb390997c09 David Wood <d-@users.noreply.github.com> 1675513697 -0500	pull: Fast-forward
+e71909eae9ad37c6dcde5511825e6fb390997c09 512e8e11f53425c3c53a0836e2991e64b36457d2 David Wood <d-@users.noreply.github.com> 1675513878 -0500	pull: Fast-forward
+512e8e11f53425c3c53a0836e2991e64b36457d2 cbe840c120b59f8ce6db97d212bf57e1b4d221e0 David Wood <d-@users.noreply.github.com> 1675515216 -0500	commit: add stack support
+cbe840c120b59f8ce6db97d212bf57e1b4d221e0 085777d94d45b4e15d065aae6155facce99b48b1 David Wood <d-@users.noreply.github.com> 1675565245 -0500	commit: avoid conflict with vscode keybinding
+085777d94d45b4e15d065aae6155facce99b48b1 94cde6ce496a042a98993d60d1f664ba3fa7bb1f David Wood <d-@users.noreply.github.com> 1675566345 -0500	commit: vscode tweak
+94cde6ce496a042a98993d60d1f664ba3fa7bb1f 77f6df53db481f71e6dccf85bb72ddf045e55fcc David Wood <d-@users.noreply.github.com> 1675611910 -0500	commit: border tweaks
+77f6df53db481f71e6dccf85bb72ddf045e55fcc d13798989448360ea31c9be72e8f3e8fbf744890 David Wood <d-@users.noreply.github.com> 1675612203 -0500	commit: stronger border line
+d13798989448360ea31c9be72e8f3e8fbf744890 4c87b50e4d63d83422cf8080d8a410e28d2b876b David Wood <d-@users.noreply.github.com> 1675629496 -0500	commit: auto refresh
+4c87b50e4d63d83422cf8080d8a410e28d2b876b 2853ab84cb4c698b9877c11d5e81c5b978db80d0 David Wood <d-@users.noreply.github.com> 1675631888 -0500	commit: add recent window focus
+2853ab84cb4c698b9877c11d5e81c5b978db80d0 6d13a7b40399da598ab3c8cc198b140f8d1cd6ba David Wood <d-@users.noreply.github.com> 1675652418 -0500	commit: add safari
+6d13a7b40399da598ab3c8cc198b140f8d1cd6ba 81c0f682365627eb4d031c80d481ed398474206f David Wood <d-@users.noreply.github.com> 1675691372 -0500	commit: small tweaks
+81c0f682365627eb4d031c80d481ed398474206f 99fa4371087cf3c4927c2711e50c80d8b5bc2da1 David Wood <d-@users.noreply.github.com> 1675691720 -0500	commit: undone thin border
+99fa4371087cf3c4927c2711e50c80d8b5bc2da1 bd1f82bfedea8c15e9b58c126ea051ef997f61ec David Wood <d-@users.noreply.github.com> 1676129466 -0500	pull: Fast-forward
+bd1f82bfedea8c15e9b58c126ea051ef997f61ec 6bd6cfcfcf3f6b2d452a715e3cede72b25f031c0 David Wood <d-@users.noreply.github.com> 1676141164 -0500	pull: Fast-forward
+6bd6cfcfcf3f6b2d452a715e3cede72b25f031c0 996cd76341979c672ac181e9068cdc9747035cae David Wood <d-@users.noreply.github.com> 1676141330 -0500	commit: remove itermcolors
+996cd76341979c672ac181e9068cdc9747035cae d46d4801272870a54512df5f7a714630a84c1a06 David Wood <d-@users.noreply.github.com> 1676212049 -0500	commit: adding chatgbt
+d46d4801272870a54512df5f7a714630a84c1a06 ffb15c4bf540f2cc491253c5b14cf17eea87ac9f David Wood <d-@users.noreply.github.com> 1676751794 -0500	commit: Add nvim init
+ffb15c4bf540f2cc491253c5b14cf17eea87ac9f d800046aa7513715583e75d51033772f646d25db David Wood <d-@users.noreply.github.com> 1676777646 -0500	commit: Change nvim colorscheme
+d800046aa7513715583e75d51033772f646d25db 9ecd9d5af5cdade132a2a5bda2299194ca5575d1 David Wood <d-@users.noreply.github.com> 1677377700 -0500	commit: Add nvim zR default
