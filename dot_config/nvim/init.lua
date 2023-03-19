@@ -5,8 +5,6 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
-local vimrc = vim.fn.stdpath("config") .. "/vimrc.vim"
-vim.cmd.source(vimrc)
 
 -- Install package manager
 --    https://github.com/folke/lazy.nvim
@@ -37,13 +35,13 @@ require('lazy').setup({
   -- Git related plugins
   'tpope/vim-fugitive',
   'tpope/vim-rhubarb',
-  'phaazon/hop.nvim',
   'nvim-tree/nvim-tree.lua',
   'lukas-reineke/indent-blankline.nvim',
 
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
 
+  { 'phaazon/hop.nvim', opts = {} },
   -- NOTE: This is where your plugins related to LSP can be installed.
   --  The configuration is done below. Search for lspconfig to find it below.
   { -- LSP Configuration & Plugins
@@ -82,7 +80,7 @@ require('lazy').setup({
         untracked    = { text = '┆' },
       },
       signcolumn = true,  -- Toggle with `:Gitsigns toggle_signs`
-      numhl      = false, -- Toggle with `:Gitsigns toggle_numhl`
+      numhl      = true, -- Toggle with `:Gitsigns toggle_numhl`
       linehl     = false, -- Toggle with `:Gitsigns toggle_linehl`
       word_diff  = false, -- Toggle with `:Gitsigns toggle_word_diff`
       watch_gitdir = {
@@ -108,7 +106,7 @@ require('lazy').setup({
         style = 'minimal',
         relative = 'cursor',
         row = 0,
-        col = 1
+        col = 0
       },
       yadm = {
         enable = false
@@ -291,6 +289,7 @@ vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc
 vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
 vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
+
 
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
@@ -501,5 +500,7 @@ cmp.setup {
   },
 }
 
+local vimrc = vim.fn.stdpath("config") .. "/vimrc.vim"
+vim.cmd.source(vimrc)
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
