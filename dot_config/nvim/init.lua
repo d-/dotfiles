@@ -1,10 +1,10 @@
 
+
 -- Set <space> as the leader key
 -- See `:help mapleader`
 --  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
-
 
 -- Install package manager
 --    https://github.com/folke/lazy.nvim
@@ -37,7 +37,8 @@ require('lazy').setup({
   'tpope/vim-rhubarb',
   'nvim-tree/nvim-tree.lua',
   'lukas-reineke/indent-blankline.nvim',
-
+  'elzr/vim-json',
+  'rhysd/fixjson',
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
 
@@ -382,7 +383,7 @@ end
 local servers = {
   -- clangd = {},
   -- gopls = {},
-  pyright = {},
+  -- pyright = {},
   -- rust_analyzer = {},
   -- tsserver = {},
 

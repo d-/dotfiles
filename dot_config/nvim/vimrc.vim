@@ -1,6 +1,5 @@
 :imap <M-s> <Esc>:silent w<kEnter>i 
 autocmd BufWritePost *.py execute ':silent Black'
-
 set foldmethod=indent
 set shiftwidth=4
 map z1  :set foldlevel=0<CR><Esc>
