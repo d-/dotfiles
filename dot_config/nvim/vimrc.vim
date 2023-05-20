@@ -17,3 +17,10 @@ set rnu!
 set scl=no 
 hi Normal ctermbg=16 guibg=#000000
 hi LineNr ctermbg=16 guibg=#000000
+
+augroup black_on_save
+  autocmd!
+  autocmd BufWritePre *.py Black
+augroup end
+
+nnoremap <F9> :Black<CR>
