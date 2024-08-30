@@ -56,5 +56,6 @@ yabai -m rule --add app="^Installer.*" manage=off
 yabai -m rule --add app="^Microsoft Remote.*" manage=off
 yabai -m rule --add app="^Messsages.*" manage=off
 yabai -m rule --add app="^Notes.*" manage=off
+yabai -m rule --add app="^Citrix Viewer.*" manage=off
 
 echo "yabai configuration loaded.."
