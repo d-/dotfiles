@@ -1,5 +1,4 @@
 :imap <M-s> <Esc>:silent w<kEnter>i 
-autocmd BufWritePost *.py execute ':silent Black'
 set foldmethod=indent
 set shiftwidth=4
 map z1  :set foldlevel=0<CR><Esc>
@@ -15,7 +14,7 @@ set foldlevel=99
 set numberwidth=1
 set rnu!
 set scl=no 
-hi Normal ctermbg=16 guibg=#000000
+hi Normal ctermbg=16 guibg=#000000 
 hi LineNr ctermbg=16 guibg=#000000
 
 augroup black_on_save
@@ -23,4 +22,5 @@ augroup black_on_save
   autocmd BufWritePre *.py Black
 augroup end
 
+imap <F5> <Esc>:w<CR>:!clear;python %<CR>
 nnoremap <F9> :Black<CR>
