@@ -13,3 +13,21 @@
 .config/fish/functions/_*.fish
 .config/fish/functions/fisher.fish
 .config/fish/functions/fzf_configure_bindings.fish
+
+# ~/.claude: only settings.json, CLAUDE.md and statusline.sh are synced.
+# Everything else is machine-local state, credentials-adjacent, or churny.
+.claude/backups
+.claude/cache
+.claude/downloads
+.claude/history.jsonl
+.claude/hook-logs
+.claude/ide
+.claude/plugins
+.claude/projects
+.claude/session-env
+.claude/sessions
+.claude/shell-snapshots
+.claude/skills
+.claude/statsig
+.claude/todos
+.claude/.last-cleanup

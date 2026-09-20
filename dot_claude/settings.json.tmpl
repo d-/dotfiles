@@ -1,0 +1,165 @@
+{{/* Synced by chezmoi. The iTerm2 hooks point at a symlink into
+     /Applications/iTerm.app; on a machine without iTerm2 that path is dead and a
+     failing hook would fire on every single tool call, so they are omitted. */}}
+{
+
+  "theme": "dark",
+  "permissions": {
+    "allow": [
+      "Bash(git status *)",
+      "Bash(git log *)",
+      "Bash(git diff *)",
+      "Bash(git show *)",
+      "Bash(git branch *)",
+      "Bash(git remote -v)",
+      "Bash(git rev-parse *)",
+      "Bash(git symbolic-ref *)",
+      "Bash(git ls-files *)",
+      "Bash(git config --get *)",
+      "Bash(chezmoi status *)",
+      "Bash(chezmoi managed *)",
+      "Bash(chezmoi diff *)",
+      "Bash(chezmoi source-path *)",
+      "Bash(chezmoi data *)",
+      "Bash(chezmoi execute-template *)",
+      "Bash(brew list *)",
+      "Bash(brew info *)",
+      "Bash(brew --prefix *)",
+      "Bash(tmux list-sessions *)",
+      "Bash(tmux list-panes *)",
+      "Bash(tmux list-keys *)",
+      "Bash(tmux show-options *)",
+      "Bash(tmux -V)",
+      "Bash(ls *)",
+      "Bash(cat *)",
+      "Bash(head *)",
+      "Bash(tail *)",
+      "Bash(wc *)",
+      "Bash(file *)",
+      "Bash(stat *)",
+      "Bash(which *)",
+      "Bash(command -v *)",
+      "Bash(find *)",
+      "Bash(grep *)",
+      "Bash(rg *)",
+      "Bash(diff *)",
+      "Bash(jq *)",
+      "Bash(uname *)",
+      "Bash(uptime)",
+      "Bash(date *)",
+      "Bash(printenv *)",
+      "Bash(gh repo view *)",
+      "Bash(gh pr view *)",
+      "Bash(gh pr list *)",
+      "Read"
+    ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "/Users/dwood/.claude/statusline.sh"
+  }{{ if stat "/Applications/iTerm.app" }},
+
+  "hooks": {
+    "Notification": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/dwood/.config/iterm2/cc-status"
+          }
+        ]
+      }
+    ],
+    "PermissionRequest": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/dwood/.config/iterm2/cc-status"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/dwood/.config/iterm2/cc-status"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/dwood/.config/iterm2/cc-status"
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/dwood/.config/iterm2/cc-status"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/dwood/.config/iterm2/cc-status"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/dwood/.config/iterm2/cc-status"
+          }
+        ]
+      }
+    ],
+    "StopFailure": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/dwood/.config/iterm2/cc-status"
+          }
+        ]
+      }
+    ],
+    "SubagentStop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/dwood/.config/iterm2/cc-status"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/dwood/.config/iterm2/cc-status"
+          }
+        ]
+      }
+    ]
+  }
+{{ end }}
+}
