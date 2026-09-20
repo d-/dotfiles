@@ -1,0 +1,5 @@
+# Superseded by ~/.config/tmux/tmux.conf, which merges both. The old
+# ~/.config/tmux/.tmux.conf was never loaded by tmux (leading dot), and
+# ~/.tmux.conf now only duplicates and partially conflicts with the merged file.
+.tmux.conf
+.config/tmux/.tmux.conf

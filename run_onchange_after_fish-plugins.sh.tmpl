@@ -1,0 +1,14 @@
+#!/bin/bash
+# Re-runs whenever the tracked plugin list changes (run_once would fire only the
+# first time, leaving added or removed plugins unapplied).
+# fish_plugins hash: {{ include "dot_config/fish/fish_plugins" | sha256sum }}
+set -uo pipefail
+
+command -v fish >/dev/null 2>&1 || exit 0
+[[ -f "$HOME/.config/fish/functions/fisher.fish" ]] || exit 0
+
+# stdin MUST be /dev/null: fisher's install/update path runs
+#   isatty || read --local --null --array stdin
+# so a non-tty stdin (exactly what chezmoi gives a script) blocks forever.
+echo "==> Reconciling fish plugins"
+fish -c 'fisher update' </dev/null || echo "    !! fisher update failed" >&2
