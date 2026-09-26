@@ -35,7 +35,13 @@ return {
       completion = {
         list = { selection = { preselect = true, auto_insert = false } },
         documentation = { auto_show = true, auto_show_delay_ms = 200 },
-        menu = { draw = { treesitter = { 'lsp' } } },
+        menu = {
+          draw = {
+            treesitter = { 'lsp' },
+            -- Kind as a word, not a Nerd Font glyph (none installed).
+            columns = { { 'label', 'label_description', gap = 1 }, { 'kind' } },
+          },
+        },
       },
       signature = { enabled = true },
       sources = {

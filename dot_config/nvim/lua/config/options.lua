@@ -35,6 +35,7 @@ o.splitbelow = true
 o.showmode = false
 o.list = true
 vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+vim.opt.fillchars = { eob = ' ' }
 o.winborder = 'rounded'
 
 -- Behaviour

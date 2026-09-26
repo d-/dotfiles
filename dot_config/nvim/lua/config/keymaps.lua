@@ -19,8 +19,37 @@ for n = 1, 9 do
   end, { desc = 'Fold level ' .. (n - 1) })
 end
 
--- Run the current Python file.
-map({ 'n', 'i' }, '<F5>', '<Cmd>write<CR><Cmd>!clear; python %<CR>', { desc = 'Run python file' })
+-- Run the current file. C++ needs no -std flag: Homebrew clang++ reads
+-- ~/.config/clang/clang++.cfg, which defaults to C++23. Spelled out in full
+-- so it still works when nvim is launched without brew shellenv on PATH.
+local runners = {
+  python = 'python %',
+  cpp = '/opt/homebrew/opt/llvm/bin/clang++ % -o /tmp/a && /tmp/a',
+  c = '/opt/homebrew/opt/llvm/bin/clang % -o /tmp/a && /tmp/a',
+}
+map({ 'n', 'i' }, '<F5>', function()
+  local cmd = runners[vim.bo.filetype]
+  if not cmd then
+    vim.notify('No runner for filetype ' .. vim.bo.filetype, vim.log.levels.WARN)
+    return
+  end
+  vim.cmd('write')
+  cmd = vim.fn.expandcmd(cmd) -- expand % while the source file is still current
+  -- Run in a terminal split below so the output stays visible. Reuse the
+  -- previous run's window if it is still open.
+  if vim.g.run_win and vim.api.nvim_win_is_valid(vim.g.run_win) then
+    vim.api.nvim_set_current_win(vim.g.run_win)
+  else
+    vim.cmd('botright 15split')
+    vim.g.run_win = vim.api.nvim_get_current_win()
+  end
+  -- term = true turns the *current* buffer into the terminal, so give it a
+  -- fresh empty one rather than the source file.
+  vim.cmd('enew')
+  vim.fn.jobstart(cmd, { term = true })
+  vim.keymap.set('n', 'q', '<Cmd>close<CR>', { buffer = true, desc = 'Close run output' })
+  vim.cmd('wincmd p')
+end, { desc = 'Run current file' })
 
 -- Windows
 map('n', '<C-h>', '<C-w>h', { desc = 'Window left' })

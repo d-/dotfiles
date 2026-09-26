@@ -60,7 +60,15 @@ return {
     },
     config = function()
       local dap, dapui = require('dap'), require('dapui')
-      dapui.setup()
+      dapui.setup({
+        -- No Nerd Font: plain-Unicode control bar.
+        controls = {
+          icons = {
+            pause = '‖', play = '▶', step_into = '↓', step_over = '→', step_out = '↑',
+            step_back = '←', run_last = '↻', terminate = '■', disconnect = '⏏',
+          },
+        },
+      })
       require('nvim-dap-virtual-text').setup({})
 
       dap.listeners.after.event_initialized['dapui'] = function() dapui.open() end

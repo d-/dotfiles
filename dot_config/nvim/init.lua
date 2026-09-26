@@ -28,8 +28,16 @@ vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
   spec = { { import = 'plugins' } },
-  install = { colorscheme = { 'oxocarbon' } },
+  install = { colorscheme = { 'cyberdream' } },
   checker = { enabled = false },
   change_detection = { notify = false },
   rocks = { enabled = false },
+  -- No Nerd Font: plain-Unicode icons for the :Lazy window.
+  ui = {
+    icons = {
+      cmd = '⌘', config = '🛠', event = '📅', ft = '📂', init = '⚙', keys = '🗝',
+      plugin = '🔌', runtime = '💻', require = '🌙', source = '📄', start = '🚀',
+      task = '📌', lazy = '💤 ',
+    },
+  },
 })

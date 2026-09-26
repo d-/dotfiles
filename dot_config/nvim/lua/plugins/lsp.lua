@@ -3,7 +3,8 @@ return {
     'neovim/nvim-lspconfig',
     event = { 'BufReadPre', 'BufNewFile' },
     dependencies = {
-      { 'mason-org/mason.nvim', opts = {} },
+      -- No Nerd Font: plain-Unicode package markers in the :Mason window.
+      { 'mason-org/mason.nvim', opts = { ui = { icons = { package_installed = '●', package_pending = '◍', package_uninstalled = '○' } } } },
       'mason-org/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
       'saghen/blink.cmp',
@@ -17,7 +18,11 @@ return {
       })
       -- Non-LSP tools, by their Mason package name.
       require('mason-tool-installer').setup({
-        ensure_installed = { 'black', 'stylua', 'prettier', 'neocmakelsp', 'codelldb' },
+        ensure_installed = {
+          'black', 'stylua', 'prettier', 'neocmakelsp', 'codelldb',
+          -- Linters for lint.lua. cppcheck comes from Homebrew instead.
+          'ruff', 'shellcheck', 'markdownlint-cli2', 'yamllint', 'hadolint', 'cmakelint',
+        },
       })
 
       -- Prefer Homebrew's clangd (same as Cursor): it is built with a user

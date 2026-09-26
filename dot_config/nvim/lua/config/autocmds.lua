@@ -9,17 +9,6 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
--- Transparent background, reapplied whenever the colorscheme changes.
-vim.api.nvim_create_autocmd('ColorScheme', {
-  group = augroup('transparent_bg'),
-  callback = function()
-    for _, group in ipairs({ 'Normal', 'NormalNC', 'NormalFloat', 'SignColumn', 'FoldColumn' }) do
-      vim.api.nvim_set_hl(0, group, { bg = 'none' })
-    end
-    vim.api.nvim_set_hl(0, 'LineNr', { bg = 'none', fg = '#666666' })
-  end,
-})
-
 -- Reopen files at the last cursor position.
 vim.api.nvim_create_autocmd('BufReadPost', {
   group = augroup('last_position'),
@@ -39,6 +28,20 @@ vim.api.nvim_create_autocmd('FileType', {
   callback = function(ev)
     vim.bo[ev.buf].buflisted = false
     vim.keymap.set('n', 'q', '<Cmd>close<CR>', { buffer = ev.buf, silent = true })
+  end,
+})
+
+-- Terminal buffers: no editor chrome (line numbers, sign gutter, cursorline,
+-- listchars) inherited from the window they were split from.
+vim.api.nvim_create_autocmd('TermOpen', {
+  group = augroup('terminal_ui'),
+  callback = function()
+    vim.wo.number = false
+    vim.wo.relativenumber = false
+    vim.wo.signcolumn = 'no'
+    vim.wo.cursorline = false
+    vim.wo.list = false
+    vim.wo.scrolloff = 0
   end,
 })
 
