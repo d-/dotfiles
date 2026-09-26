@@ -1,9 +1,8 @@
 {{/* Synced by chezmoi. The iTerm2 hooks point at a symlink into
      /Applications/iTerm.app; on a machine without iTerm2 that path is dead and a
-     failing hook would fire on every single tool call, so they are omitted. */}}
+     failing hook would fire on every single tool call, so they are omitted.
+     Key order mirrors what Claude Code writes, so `chezmoi status` stays clean. */ -}}
 {
-
-  "theme": "dark",
   "permissions": {
     "allow": [
       "Bash(git status *)",
@@ -54,11 +53,7 @@
       "Read"
     ]
   },
-  "statusLine": {
-    "type": "command",
-    "command": "/Users/dwood/.claude/statusline.sh"
-  }{{ if stat "/Applications/iTerm.app" }},
-
+{{- if stat "/Applications/iTerm.app" }}
   "hooks": {
     "Notification": [
       {
@@ -160,6 +155,13 @@
         ]
       }
     ]
-  }
-{{ end }}
+  },
+{{- end }}
+  "statusLine": {
+    "type": "command",
+    "command": "/Users/dwood/.claude/statusline.sh"
+  },
+  "tui": "fullscreen",
+  "theme": "dark",
+  "model": "claude-fable-5-1[1m]"
 }

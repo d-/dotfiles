@@ -26,6 +26,41 @@ for brewbin in /opt/homebrew/bin/brew /usr/local/bin/brew
     end
 end
 
+# C++ toolchain. Homebrew's LLVM (clang 23) is the default compiler: it is
+# keg-only, so put its bin dir at the front of PATH so `clang`, `clang++`,
+# `clangd`, `clang-format` and `clang-tidy` all resolve there. Apple's older
+# clang stays available as /usr/bin/clang++. --path matters: without it
+# fish_add_path only edits fish_user_paths; --move keeps it at the front even
+# if an earlier entry already contained it.
+if set -q HOMEBREW_PREFIX; and test -d $HOMEBREW_PREFIX/opt/llvm/bin
+    fish_add_path -g --path --move --prepend $HOMEBREW_PREFIX/opt/llvm/bin
+end
+
+# C++23 by default: ~/.config/clang/clang++.cfg adds -std=c++23 to every LLVM
+# clang++ invocation (Homebrew builds clang with ~/.config/clang as its user
+# config dir; Apple's clang ignores it). Config-file flags come first, so a
+# project's own -std= or CMAKE_CXX_STANDARD still wins.
+# CC/CXX are needed because PATH order alone does not reach build systems:
+# CMake and make look for `c++`/`cc`, which LLVM does not ship, so they would
+# silently fall back to Apple's /usr/bin/c++ (C++14 default). Presets,
+# -DCMAKE_CXX_COMPILER and an explicit CXX= on the command line still win.
+if set -q HOMEBREW_PREFIX; and test -x $HOMEBREW_PREFIX/opt/llvm/bin/clang++
+    set -gx CC clang
+    set -gx CXX clang++
+end
+
+# CMake defaults for ad-hoc `cmake -B build`: Ninja, and compile_commands.json
+# so clangd can see every project. CMakePresets.json and -G still win.
+if type -q ninja
+    set -gx CMAKE_GENERATOR Ninja
+end
+set -gx CMAKE_EXPORT_COMPILE_COMMANDS ON
+
+# vcpkg: the brew formula ships only the binary; the ports registry is a clone.
+if test -d $HOME/.local/share/vcpkg
+    set -gx VCPKG_ROOT $HOME/.local/share/vcpkg
+end
+
 # Stop conda touching the prompt at all -- CONDA_LEFT_PROMPT makes it wrap
 # fish_prompt instead, which double-renders the env. fish_prompt shows
 # $CONDA_DEFAULT_ENV itself.
@@ -44,6 +79,10 @@ end
 # gpg a bogus TTY path.
 if status is-interactive
     fish_vi_key_bindings
+
+    # `c++` is always Apple's driver (LLVM ships no such alias) and reads no
+    # config file; expand it visibly so ad-hoc compiles still get C++23.
+    abbr -a c++ 'c++ -std=c++23'
 
     # Prompt settings; the prompt itself lives in functions/fish_prompt.fish.
     set -g fish_prompt_pwd_dir_length 0

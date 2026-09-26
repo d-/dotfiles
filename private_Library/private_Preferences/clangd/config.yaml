@@ -1,0 +1,14 @@
+# clangd user config (macOS path; $XDG_CONFIG_HOME/clangd/config.yaml if set).
+#
+# Make the fallback compile (a file with no compile_commands.json entry)
+# default to C++23 without overriding projects that pin a standard. Naming the
+# driver clang++ makes clangd's built-in driver load ~/.config/clang/clang++.cfg,
+# whose -std=c++23 comes *before* any -std= from compile_commands.json, so a
+# project's own standard still wins. `Add: [-std=c++23]` would instead be
+# appended and silently override a C++20 project.
+#
+# Only works with Homebrew's clangd (built with a user config dir); Apple's
+# /usr/bin/clangd ignores clang config files. Cursor and Neovim both point at
+# $HOMEBREW_PREFIX/opt/llvm/bin/clangd for this reason.
+CompileFlags:
+  Compiler: clang++

@@ -24,12 +24,44 @@ fi
 info "Installing CLI tools"
 brew install fish fzf gh tmux neovim lynx chezmoi || warn "some formulae failed"
 
+# Neovim config deps: node (Copilot, pyright, ts_ls via Mason), ripgrep/fd
+# (Telescope), tree-sitter-cli (nvim-treesitter parser builds).
+info "Installing Neovim dependencies"
+brew install node ripgrep fd tree-sitter-cli || warn "some neovim deps failed"
+
 info "Installing GUI apps"
 brew install --cask kitty espanso || warn "some casks failed"
 
 info "Installing window manager (yabai/skhd)"
 brew tap koekeishiya/formulae >/dev/null 2>&1
 brew install koekeishiya/formulae/yabai koekeishiya/formulae/skhd || warn "yabai/skhd failed"
+
+# --- C++ toolchain ------------------------------------------------------------
+# Apple's CLT provides clang/clangd/lldb but no cmake, ninja, clang-format or
+# clang-tidy. llvm is keg-only; config.fish puts its bin dir first on PATH so
+# Homebrew's clang is the default compiler. gcc installs as gcc-NN/g++-NN.
+info "Installing C++ toolchain"
+brew install cmake ninja ccache llvm gcc include-what-you-use \
+    vcpkg conan cppcheck bear lcov gcovr google-benchmark hyperfine pkgconf \
+    || warn "some C++ formulae failed"
+
+# vcpkg's brew formula is just the binary; ports live in a full clone (shallow
+# clones break baseline lookups). config.fish exports VCPKG_ROOT when present.
+VCPKG_DIR="$HOME/.local/share/vcpkg"
+if [[ ! -d "$VCPKG_DIR/.git" ]]; then
+    info "Cloning vcpkg registry to $VCPKG_DIR"
+    git clone -q https://github.com/microsoft/vcpkg "$VCPKG_DIR" || warn "vcpkg clone failed"
+fi
+
+# Editor extensions (Cursor/VS Code CLI, if present). clangd + CMake Tools +
+# CodeLLDB cover language server, build integration and debugging.
+if command -v code >/dev/null 2>&1; then
+    info "Installing C++ editor extensions"
+    for ext in llvm-vs-code-extensions.vscode-clangd ms-vscode.cmake-tools \
+               twxs.cmake vadimcn.vscode-lldb; do
+        code --install-extension "$ext" >/dev/null 2>&1 || warn "extension $ext failed"
+    done
+fi
 
 # --- Register fish as a login shell -----------------------------------------
 FISH="$(command -v fish || true)"
