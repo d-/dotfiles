@@ -42,8 +42,11 @@ brew install koekeishiya/formulae/yabai koekeishiya/formulae/skhd || warn "yabai
 # Homebrew's clang is the default compiler. gcc installs as gcc-NN/g++-NN.
 info "Installing C++ toolchain"
 brew install cmake ninja ccache llvm gcc include-what-you-use \
-    vcpkg conan cppcheck bear lcov gcovr google-benchmark hyperfine pkgconf \
+    vcpkg conan cppcheck bear lcov gcovr google-benchmark hyperfine pkgconf cppman \
     || warn "some C++ formulae failed"
+# cppman: cppreference as man pages. Neovim pipes it through PAGER=cat, which
+# only works when cppman's own pager setting is "system".
+command -v cppman >/dev/null 2>&1 && cppman --pager=system >/dev/null 2>&1 || true
 
 # vcpkg's brew formula is just the binary; ports live in a full clone (shallow
 # clones break baseline lookups). config.fish exports VCPKG_ROOT when present.
