@@ -84,6 +84,57 @@ if status is-interactive
     # config file; expand it visibly so ad-hoc compiles still get C++23.
     abbr -a c++ 'c++ -std=c++23'
 
+    # duogreen syntax and pager colours, matching nvim (lua/duogreen.lua) and
+    # tmux: green for content, greys for structure, colour only for attention.
+    # Each value is hex first with a named fallback for terminals without RGB.
+    # Set here, not in conf.d (fisher owns that directory, see .chezmoiignore).
+    # Globals shadow fish's built-in defaults and any universal leftovers.
+
+    # Command line
+    set -g fish_color_normal normal
+    set -g fish_color_command 00ff00 green                # functions -> g0
+    set -g fish_color_keyword --bold 00d400 green         # keywords  -> g1 bold
+    set -g fish_color_param 00d400 green                  # main text -> g1
+    set -g fish_color_quote 00a800 green                  # strings   -> g2
+    set -g fish_color_option b0b0b0 brwhite               # operators -> gray4
+    set -g fish_color_redirection b0b0b0 brwhite
+    set -g fish_color_end b0b0b0 brwhite
+    set -g fish_color_operator b0b0b0 brwhite
+    set -g fish_color_escape 00ff00 green
+    set -g fish_color_comment --italics 858585 brblack    # comments  -> gray3
+    set -g fish_color_autosuggestion 5e5e5e brblack       # ghost text -> gray2
+    set -g fish_color_valid_path --underline
+    set -g fish_color_cancel 858585 brblack
+    set -g fish_color_history_current --bold
+    set -g fish_color_selection --background=262626 --background=brblack
+    set -g fish_color_search_match 00ff00 green --background=003a00 --background=brblack
+    set -g fish_color_match --bold e0c070 yellow          # matching bracket, like MatchParen
+
+    # Attention only
+    set -g fish_color_error e06c75 red
+    set -g fish_color_status e06c75 red
+    set -g fish_color_cwd_root e06c75 red
+    set -g fish_color_host_remote e0c070 yellow           # you are somewhere else
+
+    # Used by fish's default prompt pieces, kept on-palette
+    set -g fish_color_cwd 00d400 green
+    set -g fish_color_user 858585 brblack
+    set -g fish_color_host 858585 brblack
+
+    # Completion pager
+    set -g fish_pager_color_prefix --bold 00ff00 green    # the matched part
+    set -g fish_pager_color_completion 00d400 green
+    set -g fish_pager_color_description 858585 brblack
+    set -g fish_pager_color_progress b0b0b0 brwhite --background=1c1c1c --background=brblack
+    set -g fish_pager_color_selected_background --background=262626 --background=brblack
+    set -g fish_pager_color_selected_prefix --bold 00ff00 green
+    set -g fish_pager_color_selected_completion --bold 00ff00 green
+    set -g fish_pager_color_selected_description b0b0b0 brwhite
+    set -g fish_pager_color_secondary_background
+    set -g fish_pager_color_secondary_prefix
+    set -g fish_pager_color_secondary_completion
+    set -g fish_pager_color_secondary_description
+
     # Prompt settings; the prompt itself lives in functions/fish_prompt.fish.
     set -g fish_prompt_pwd_dir_length 0
     set -g __fish_git_prompt_showdirtystate 1
