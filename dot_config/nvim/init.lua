@@ -13,6 +13,10 @@ require('config.options')
 require('config.keymaps')
 require('config.autocmds')
 
+-- Colourscheme lives in colors/duogreen.lua (lua/duogreen.lua holds the
+-- palette), so it needs no plugin and loads before any of them.
+vim.cmd.colorscheme('duogreen')
+
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 if not vim.uv.fs_stat(lazypath) then
@@ -28,7 +32,7 @@ vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
   spec = { { import = 'plugins' } },
-  install = { colorscheme = { 'cyberdream' } },
+  install = { colorscheme = { 'duogreen' } },
   checker = { enabled = false },
   change_detection = { notify = false },
   rocks = { enabled = false },

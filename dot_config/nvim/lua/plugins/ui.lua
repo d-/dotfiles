@@ -1,68 +1,11 @@
 return {
-  -- Colourscheme: cyberdream (high-contrast, vibrant) on a true black palette.
-  -- The palette overrides feed every highlight group, so floats, pickers and
-  -- the statusline all sit on black instead of cyberdream's default #16181a.
-  {
-    'scottmckendry/cyberdream.nvim',
-    lazy = false,
-    priority = 1000,
-    opts = {
-      variant = 'default',
-      italic_comments = true,
-      borderless_pickers = true,
-      terminal_colors = true,
-      colors = {
-        bg = '#000000',
-        bg_alt = '#0a0a0a',
-        bg_highlight = '#262626',
-      },
-      overrides = function(c)
-        return {
-          CursorLine = { bg = '#101010' },
-          CursorLineNr = { fg = c.cyan, bold = true },
-          LineNr = { fg = '#4a5060' },
-          Visual = { bg = '#2b3040' },
-          WinSeparator = { fg = '#2a2a2a' },
-          FloatBorder = { fg = '#3a3f4a', bg = '#0a0a0a' },
-          NormalFloat = { bg = '#0a0a0a' },
-          Pmenu = { bg = '#0a0a0a' },
-          PmenuSel = { bg = '#262626', fg = c.fg, bold = true },
-          MatchParen = { fg = c.yellow, bg = '#262626', bold = true },
-          -- Whitespace markers (listchars) should whisper, not shout.
-          Whitespace = { fg = '#2a2a2a' },
-          NonText = { fg = '#2a2a2a' },
-          -- Diagnostic underlines pop against black without extra noise.
-          DiagnosticUnderlineError = { sp = c.red, undercurl = true },
-          DiagnosticUnderlineWarn = { sp = c.orange, undercurl = true },
-          -- Indent guides: faint lines, brighter current scope.
-          IblIndent = { fg = '#1e1e1e' },
-          IblScope = { fg = '#3a3f4a' },
-        }
-      end,
-    },
-    config = function(_, opts)
-      require('cyberdream').setup(opts)
-      vim.cmd.colorscheme('cyberdream')
-    end,
-  },
+  -- Colourscheme: see colors/duogreen.lua; it is loaded from init.lua.
 
   -- Statusline. No Nerd Font in the terminal, so text and plain Unicode only.
   {
     'nvim-lualine/lualine.nvim',
     event = 'VeryLazy',
     config = function()
-      -- cyberdream ships a lualine theme built from its stock palette; repaint
-      -- it onto the black background used above.
-      local theme = require('lualine.themes.cyberdream')
-      for _, mode in pairs(theme) do
-        for _, section in pairs(mode) do
-          if type(section) == 'table' then section.bg = '#000000' end
-        end
-      end
-      for _, section in pairs(theme.inactive or {}) do
-        if type(section) == 'table' then section.fg = '#4a5060' end
-      end
-
       local function lsp_clients()
         local names = {}
         for _, c in ipairs(vim.lsp.get_clients({ bufnr = 0 })) do
@@ -73,7 +16,7 @@ return {
 
       require('lualine').setup({
         options = {
-          theme = theme,
+          theme = require('duogreen').lualine(),
           icons_enabled = false,
           globalstatus = true,
           component_separators = { left = '│', right = '│' },

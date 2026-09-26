@@ -2,6 +2,10 @@ return {
   {
     'github/copilot.vim',
     event = 'InsertEnter',
+    -- Also load on :Copilot (setup, status, ...). Without this stub the
+    -- command does not exist before the first insert, and `:Copilot` then
+    -- matches the CopilotChat* stubs as a prefix: E464 ambiguous command.
+    cmd = 'Copilot',
     init = function()
       -- Tab is handled by blink.cmp below so the two don't fight.
       vim.g.copilot_no_tab_map = true
