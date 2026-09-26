@@ -12,8 +12,9 @@
 --   g1 bold   keywords, control flow
 --   g1        identifiers, variables, properties (main text)
 --   g2        strings, numbers, booleans, nullptr
---   gray4     types, namespaces, preprocessor, operators
+--   gray4     types, preprocessor, operators
 --   gray3     punctuation, comments (italic)
+--   scope     namespace qualifiers (std::), deliberately dim
 --   gray2-0   line numbers, borders, whitespace markers
 
 local M = {}
@@ -28,11 +29,12 @@ M.palette = {
   g0 = '#00ff00',
   g1 = '#00d400',
   g2 = '#00a800',
-  gray4 = '#8c8c8c',
-  gray3 = '#666666',
-  gray2 = '#474747',
-  gray1 = '#333333',
-  gray0 = '#262626',
+  gray4 = '#b0b0b0',
+  gray3 = '#858585',
+  gray2 = '#5e5e5e',
+  gray1 = '#404040',
+  gray0 = '#303030',
+  scope = '#5e5e5e', -- std:: and friends: scoping noise, kept out of the way
   red = '#e06c75',
   red_dim = '#9e5560',
   red_bg = '#2a1012',
@@ -214,8 +216,8 @@ function M.load()
     ['@constant'] = { fg = p.g1 },
     ['@constant.builtin'] = { fg = p.g2 },
     ['@constant.macro'] = { fg = p.gray4 },
-    ['@module'] = { fg = p.gray4 },
-    ['@module.builtin'] = { fg = p.gray4 },
+    ['@module'] = { fg = p.scope },
+    ['@module.builtin'] = { fg = p.scope },
     ['@label'] = { fg = p.gray4 },
     ['@string'] = { link = 'String' },
     ['@string.documentation'] = { link = 'Comment' },
@@ -261,6 +263,7 @@ function M.load()
     ['@punctuation.delimiter'] = { fg = p.gray3 },
     ['@punctuation.bracket'] = { fg = p.gray3 },
     ['@punctuation.special'] = { fg = p.g0 },
+    ['@punctuation.scope'] = { fg = p.scope }, -- '::' via after/queries/cpp
     ['@comment'] = { link = 'Comment' },
     ['@comment.documentation'] = { link = 'Comment' },
     ['@comment.error'] = { fg = p.red, bold = true },
