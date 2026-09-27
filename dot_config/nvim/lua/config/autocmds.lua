@@ -45,6 +45,15 @@ vim.api.nvim_create_autocmd('TermOpen', {
   end,
 })
 
+-- New C/C++ headers start with an include guard.
+vim.api.nvim_create_autocmd('BufNewFile', {
+  group = augroup('header_guard'),
+  pattern = { '*.h', '*.hpp', '*.hh', '*.hxx', '*.inl' },
+  callback = function(ev)
+    vim.api.nvim_buf_set_lines(ev.buf, 0, -1, false, { '#pragma once', '' })
+  end,
+})
+
 vim.diagnostic.config({
   severity_sort = true,
   virtual_text = { spacing = 2, source = 'if_many' },

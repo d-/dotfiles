@@ -41,6 +41,63 @@ local function with_term(prompt, fn)
 end
 
 -- Scratch window for rendered pages; reused across lookups.
+local ns = vim.api.nvim_create_namespace('cppman')
+
+-- Man renders bold as x^Hx and underline as _^Hx. Strip the overstrikes and
+-- return the plain line plus {start_col, end_col, group} highlight spans.
+local function render_line(line)
+  local out, spans = {}, {}
+  local col, i, n = 0, 1, #line
+  local pend, bold, under = nil, false, false
+  local function cont(b) return b and b >= 0x80 and b < 0xC0 end
+  local function char_at(k)
+    local e = k
+    while e < n and cont(line:byte(e + 1)) do e = e + 1 end
+    return line:sub(k, e), e
+  end
+  local function flush()
+    if not pend then return end
+    out[#out + 1] = pend
+    local group = under and 'manUnderline' or (bold and 'manBold' or nil)
+    if group then
+      local last = spans[#spans]
+      if last and last[2] == col and last[3] == group then last[2] = col + #pend
+      else spans[#spans + 1] = { col, col + #pend, group } end
+    end
+    col = col + #pend
+    pend, bold, under = nil, false, false
+  end
+  while i <= n do
+    if line:byte(i) == 8 then
+      local ch, e = char_at(i + 1)
+      if not pend then pend = ch
+      elseif ch == pend then bold = true
+      elseif pend == '_' then under = true; pend = ch
+      elseif ch == '_' then under = true
+      else pend = ch end
+      i = e + 1
+    else
+      flush()
+      local ch, e = char_at(i)
+      pend = ch
+      i = e + 1
+    end
+  end
+  flush()
+  local text = table.concat(out)
+  -- Version tags: "(since C++20)", "[until C++17]", "(deprecated in C++11)", "[C++23]"
+  local s0 = 1
+  while true do
+    local a, b = text:find('[%[%(][%a ]*C%+%+%d%d[%]%)]', s0)
+    if not a then break end
+    spans[#spans + 1] = { a - 1, b, 'CppmanVersion' }
+    s0 = b + 1
+  end
+  -- cppreference breadcrumb ("< cpp | container") is navigation, not content.
+  if text:match('^%s*< %a+ |') then spans[#spans + 1] = { 0, #text, 'Comment' } end
+  return text, spans
+end
+
 local function show_page(title, lines)
   local win
   for _, w in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
@@ -54,7 +111,16 @@ local function show_page(title, lines)
   end
   local buf = vim.api.nvim_create_buf(false, true)
   vim.b[buf].cppman = true
+  local all_spans = {}
+  for i, line in ipairs(lines) do
+    lines[i], all_spans[i] = render_line(line)
+  end
   vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
+  for row, spans in ipairs(all_spans) do
+    for _, sp in ipairs(spans) do
+      vim.api.nvim_buf_set_extmark(buf, ns, row - 1, sp[1], { end_col = sp[2], hl_group = sp[3] })
+    end
+  end
   vim.api.nvim_buf_set_name(buf, 'cppman://' .. title)
   vim.bo[buf].buftype, vim.bo[buf].bufhidden, vim.bo[buf].swapfile = 'nofile', 'wipe', false
   vim.bo[buf].modifiable, vim.bo[buf].readonly = false, true
@@ -80,8 +146,6 @@ function M.man(term)
       if res.code ~= 0 or not out:find('%S') then
         return notify(term .. ': no cppreference page. <leader>cM searches the index.', vim.log.levels.WARN)
       end
-      -- Drop man's overstrike bold/underline (x^Hx, _^Hx), as `col -bx` would.
-      out = out:gsub('.\8', '')
       show_page(term, vim.split(out, '\n', { plain = true }))
     end))
   end)
@@ -155,7 +219,8 @@ function M.attach(buf)
   end
   map('<leader>cm', function() with_term('cppman: ', M.man) end, 'cppreference page (cppman)')
   map('<leader>cM', function() M.search(vim.fn.expand('<cword>')) end, 'Search cppreference index', 'n')
-  map('<leader>cr', function() with_term('cppreference: ', M.cppreference) end, 'cppreference.com in browser')
+  -- <leader>cr is LSP rename (lsp.lua), which attaches later and would shadow this.
+  map('<leader>cR', function() with_term('cppreference: ', M.cppreference) end, 'cppreference.com in browser')
   map('<leader>cS', function() with_term('C++ draft: ', M.standard) end, 'ISO C++ draft in browser')
 end
 

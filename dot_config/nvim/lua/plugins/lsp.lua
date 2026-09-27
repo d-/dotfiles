@@ -42,6 +42,10 @@ return {
           '--completion-style=detailed',
           '--function-arg-placeholders',
           '--fallback-style=llvm',
+          -- Trust Homebrew GCC as a driver so a build dir configured with
+          -- g++-16 (the workshop's *-gcc presets) gets the right system
+          -- include paths instead of phantom errors.
+          '--query-driver=' .. brew .. '/bin/g++-*,' .. brew .. '/bin/gcc-*',
         },
       })
       vim.lsp.enable('clangd')
@@ -88,6 +92,31 @@ return {
             map('<leader>ch', function()
               vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = ev.buf }), { bufnr = ev.buf })
             end, 'Toggle inlay hints')
+          end
+
+          -- Call and type hierarchy are built in (0.10+) but unmapped by default.
+          if client:supports_method('callHierarchy/incomingCalls') then
+            map('<leader>cI', vim.lsp.buf.incoming_calls, 'Incoming calls')
+            map('<leader>cO', vim.lsp.buf.outgoing_calls, 'Outgoing calls')
+          end
+          if client:supports_method('textDocument/prepareTypeHierarchy') then
+            map('<leader>cT', function() vim.lsp.buf.typehierarchy('subtypes') end, 'Subtypes')
+            map('<leader>cU', function() vim.lsp.buf.typehierarchy('supertypes') end, 'Supertypes')
+          end
+
+          -- Highlight other uses of the symbol under the cursor after `updatetime`.
+          if client:supports_method('textDocument/documentHighlight') then
+            local group = vim.api.nvim_create_augroup('user_lsp_highlight_' .. ev.buf, { clear = true })
+            vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
+              group = group, buffer = ev.buf, callback = vim.lsp.buf.document_highlight,
+            })
+            vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI', 'BufLeave' }, {
+              group = group, buffer = ev.buf, callback = vim.lsp.buf.clear_references,
+            })
+            vim.api.nvim_create_autocmd('LspDetach', {
+              group = group, buffer = ev.buf,
+              callback = function() vim.api.nvim_clear_autocmds({ group = group }) end,
+            })
           end
 
           if client.name == 'clangd' then

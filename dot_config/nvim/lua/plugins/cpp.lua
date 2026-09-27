@@ -5,7 +5,7 @@ return {
     'Civitasv/cmake-tools.nvim',
     dependencies = { 'nvim-lua/plenary.nvim' },
     ft = { 'c', 'cpp', 'cmake' },
-    cmd = { 'CMakeGenerate', 'CMakeBuild', 'CMakeRun', 'CMakeDebug', 'CMakeSelectBuildType', 'CMakeSelectBuildTarget', 'CMakeSelectLaunchTarget', 'CMakeClean', 'CMakeOpenExecutor' },
+    cmd = { 'CMakeGenerate', 'CMakeBuild', 'CMakeRun', 'CMakeDebug', 'CMakeSelectBuildType', 'CMakeSelectBuildTarget', 'CMakeSelectLaunchTarget', 'CMakeClean', 'CMakeOpenExecutor', 'CMakeSelectConfigurePreset', 'CMakeSelectBuildPreset', 'CMakeSettings' },
     keys = {
       { '<leader>bg', '<Cmd>CMakeGenerate<CR>', desc = 'CMake generate' },
       { '<leader>bb', '<Cmd>CMakeBuild<CR>', desc = 'CMake build' },
@@ -14,6 +14,10 @@ return {
       { '<leader>bt', '<Cmd>CMakeSelectBuildTarget<CR>', desc = 'Select build target' },
       { '<leader>bl', '<Cmd>CMakeSelectLaunchTarget<CR>', desc = 'Select launch target' },
       { '<leader>bT', '<Cmd>CMakeSelectBuildType<CR>', desc = 'Select build type' },
+      -- Projects with CMakePresets.json (the workshop) pick presets instead of
+      -- build type; cmake-tools switches modes automatically.
+      { '<leader>bp', '<Cmd>CMakeSelectConfigurePreset<CR>', desc = 'Select configure preset' },
+      { '<leader>bP', '<Cmd>CMakeSelectBuildPreset<CR>', desc = 'Select build preset' },
       { '<leader>bc', '<Cmd>CMakeClean<CR>', desc = 'CMake clean' },
       { '<leader>bo', '<Cmd>CMakeOpenExecutor<CR>', desc = 'Open build output' },
     },

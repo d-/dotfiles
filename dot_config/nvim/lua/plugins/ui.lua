@@ -72,6 +72,8 @@ return {
         { '<leader>g', group = 'git' },
         { '<leader>h', group = 'hop' },
         { '<leader>r', group = 'repl' },
+        { '<leader>t', group = 'test' },
+        { '<leader>x', group = 'trouble' },
         { '<leader>w', group = 'workspace' },
       },
     },
