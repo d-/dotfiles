@@ -16,6 +16,7 @@ require('config.autocmds')
 -- Colourscheme lives in colors/duogreen.lua (lua/duogreen.lua holds the
 -- palette), so it needs no plugin and loads before any of them.
 vim.cmd.colorscheme('duogreen')
+require('config.accents')
 
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
