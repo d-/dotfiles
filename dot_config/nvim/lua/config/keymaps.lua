@@ -8,7 +8,7 @@ map('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 map('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 -- Save without leaving insert mode. <C-s> works everywhere; <M-s> needs
--- kitty's macos_option_as_alt.
+-- the terminal to send Option/Alt as Meta.
 map({ 'i', 'n' }, '<C-s>', '<Cmd>silent write<CR>', { desc = 'Save' })
 map({ 'i', 'n' }, '<M-s>', '<Cmd>silent write<CR>', { desc = 'Save' })
 

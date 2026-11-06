@@ -29,9 +29,6 @@ brew install fish fzf gh tmux neovim lynx chezmoi || warn "some formulae failed"
 info "Installing Neovim dependencies"
 brew install node ripgrep fd tree-sitter-cli || warn "some neovim deps failed"
 
-info "Installing GUI apps"
-brew install --cask kitty espanso || warn "some casks failed"
-
 info "Installing window manager (yabai/skhd)"
 brew tap koekeishiya/formulae >/dev/null 2>&1
 brew install koekeishiya/formulae/yabai koekeishiya/formulae/skhd || warn "yabai/skhd failed"
@@ -97,10 +94,10 @@ fi
 
 # conda-forge only: avoids Anaconda's default-channel Terms of Service, which
 # also carry commercial-use licensing conditions.
-if [[ -x "$CONDA" ]] && ! "$CONDA" env list | grep -qE '^py11\s'; then
-    info "Creating conda env py11 (conda-forge)"
-    "$CONDA" create -n py11 python=3.11 -y -c conda-forge --override-channels \
-        || warn "py11 env creation failed"
+if [[ -x "$CONDA" ]] && ! "$CONDA" env list | grep -qE '^py15\s'; then
+    info "Creating conda env py15 (conda-forge)"
+    "$CONDA" create -n py15 python=3.15 -y -c conda-forge --override-channels \
+        || warn "py15 env creation failed"
 fi
 
 # --- fish plugins -----------------------------------------------------------

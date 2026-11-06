@@ -66,11 +66,11 @@ end
 # $CONDA_DEFAULT_ENV itself.
 set -gx CONDA_CHANGEPS1 false
 
-# Left unguarded so `fish -c 'python ...'` in scripts still gets py11.
+# Left unguarded so `fish -c 'python ...'` in scripts still gets py15.
 if test -x $HOME/miniconda3/bin/conda
     eval $HOME/miniconda3/bin/conda "shell.fish" "hook" | source
-    if test -d $HOME/miniconda3/envs/py11
-        conda activate py11
+    if test -d $HOME/miniconda3/envs/py15
+        conda activate py15
     end
 end
 
