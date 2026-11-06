@@ -30,8 +30,8 @@ info "Installing Neovim dependencies"
 brew install node ripgrep fd tree-sitter-cli || warn "some neovim deps failed"
 
 info "Installing window manager (yabai/skhd)"
-brew tap koekeishiya/formulae >/dev/null 2>&1
-brew install koekeishiya/formulae/yabai koekeishiya/formulae/skhd || warn "yabai/skhd failed"
+brew tap asmvik/formulae >/dev/null 2>&1
+brew install asmvik/formulae/yabai asmvik/formulae/skhd || warn "yabai/skhd failed"
 
 # --- C++ toolchain ------------------------------------------------------------
 # Apple's CLT provides clang/clangd/lldb but no cmake, ninja, clang-format or
